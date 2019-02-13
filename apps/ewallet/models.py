@@ -17,5 +17,9 @@ class Profile(models.Model):
                         choices=GENDER_CHOICES)
     profession = models.CharField(max_length=20)
 
+    def save(self, *args, **kwargs): # override save method
+        self.address = self.address.capitalize()
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return self.mobile
