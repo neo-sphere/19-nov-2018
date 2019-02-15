@@ -14,10 +14,10 @@ class Profile(models.Model):
     mobile = models.CharField(max_length=15, unique=True)
     dob = models.DateField()
     gender = models.CharField(max_length=1,
-                        choices=GENDER_CHOICES)
+                              choices=GENDER_CHOICES)
     profession = models.CharField(max_length=20)
 
-    def save(self, *args, **kwargs): # override save method
+    def save(self, *args, **kwargs):  # override save method
         self.address = self.address.capitalize()
         super().save(*args, **kwargs)
 

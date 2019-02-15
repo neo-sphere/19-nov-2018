@@ -4,8 +4,10 @@ from django.contrib import admin
 
 from .models import Profile
 
+
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
+
     list_display = ('address', 'dob', 'mobile', 'country', 'gender', 'profession', 'get_age')
     list_display_links = ('address', 'mobile')
     list_editable = ('dob', 'country')
