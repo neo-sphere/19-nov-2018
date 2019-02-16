@@ -1,11 +1,9 @@
 
 <html>
     <head>
-            <title>
-                    {{ title }}
-            </title>
+        <title>{{ title }}</title>
     </head>
 </html>
 <h1>
-    Welcome to Home Page {{ name }}!
+    Welcome to Home Page {{ request.user.username | capfirst }}!
 </h1>
