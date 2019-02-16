@@ -17,9 +17,11 @@ from django.contrib import admin
 from django.urls import path
 
 from apps.ewallet import views
+from apps.user_profile import views as user_profile_views
 
 urlpatterns = [
-    path('', views.home),
+    path('', views.home, name='home'),
     path('contact', views.contact),
     path('admin/', admin.site.urls),
+    path('signup/', user_profile_views.signup),
 ]
