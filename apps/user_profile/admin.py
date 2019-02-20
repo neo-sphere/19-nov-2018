@@ -13,10 +13,15 @@ class ProfileInline(admin.StackedInline):
     verbose_name_plural = 'Profile'
     fk_name = 'user'
 
+class AccountInline(admin.StackedInline):
+    model = Account
+    can_delete = False
+    verbose_name_plural = 'Account'
+    fk_name = 'user'
 
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
-    inlines = (ProfileInline, )
+    inlines = (ProfileInline, AccountInline)
 
     def get_inline_instances(self, request, obj=None):
         if not obj:
@@ -24,9 +29,9 @@ class CustomUserAdmin(UserAdmin):
         return super(CustomUserAdmin, self).get_inline_instances(request, obj)
 
 
-@admin.register(Account)
-class AccountAdmin(admin.ModelAdmin):
-    list_display = ('user', 'balance', 'point')
+# @admin.register(Account)
+# class AccountAdmin(admin.ModelAdmin):
+#     list_display = ('user', 'balance', 'point')
 
 @admin.register(Transaction)
 class TransactionAdmin(admin.ModelAdmin):

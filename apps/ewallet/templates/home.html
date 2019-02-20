@@ -5,5 +5,11 @@
     </head>
 </html>
 <h1>
-    Welcome to Home Page {{ request.user.username | capfirst }}!
+    Welcome to Home Page
+    {% if request.user.is_authenticated %}
+        {{ request.user.username | capfirst }}!</br>
+        <a href="{% url 'send' %}">Balance Transfer</a>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+    {% endif %}
 </h1>

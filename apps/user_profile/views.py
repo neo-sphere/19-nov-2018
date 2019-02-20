@@ -1,10 +1,11 @@
 from django.shortcuts import render, redirect
 
 from django.contrib.auth.forms import UserCreationForm
-# from django.views.generic import FormView
+from django.views.generic import FormView
 from django.views.generic import CreateView
 
 from .models import Transaction
+from .forms import TransactionForm
 
 
 def signup(request):
@@ -25,10 +26,13 @@ def signup(request):
 
 # class based view use
 class TransactionView(CreateView):
-    model = Transaction
+    form_class = TransactionForm
     template_name = 'transaction.html'
-    fields = ('from_user', 'to_user', 'ammount')
-    context_object_name = 'form'
     success_url = '/'
 
-    
+    def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.from_user = self.request.user
+        obj.save()
+        return super().form_valid(form)
+
