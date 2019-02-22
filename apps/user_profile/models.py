@@ -27,7 +27,7 @@ class Profile(models.Model):
     profile_pic = models.ImageField(upload_to='profile', null=True, blank=True)
     address = models.CharField(max_length=30)
     country = models.CharField(max_length=30)
-    mobile = models.CharField(max_length=15, unique=True, 
+    mobile = models.CharField(max_length=15, unique=True,
                     validators=[validate_mobile_no_is_numeric,])
     dob = models.DateField(null=True)
     gender = models.CharField(max_length=1,
@@ -39,7 +39,7 @@ class Profile(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return self.mobile
+        return self.user.username
 
 
 class Account(models.Model):
@@ -74,11 +74,11 @@ def balance_transfer(sender, instance, created, **kwargs):
         from_user.save()
         to_user.save()
 
-@receiver(post_save, sender=User)
-def create_user_profile_and_account(sender, instance, created, **kwargs):
-    if created:
-        Profile.objects.create(user=instance)
-        Account.objects.create(user=instance)
+# @receiver(post_save, sender=User)
+# def create_user_profile_and_account(sender, instance, created, **kwargs):
+#     if created:
+#         Profile.objects.create(user=instance)
+#         Account.objects.create(user=instance)
 
-    instance.profile.save()
-    instance.account.save()
+#     instance.profile.save()
+#     instance.account.save()

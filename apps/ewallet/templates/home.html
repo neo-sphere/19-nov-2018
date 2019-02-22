@@ -1,15 +1,5 @@
-
-<html>
-    <head>
-        <title>{{ title }}</title>
-    </head>
-</html>
-<h1>
-    Welcome to Home Page
-    {% if request.user.is_authenticated %}
-        {{ request.user.username | capfirst }}!</br>
-        <a href="{% url 'send' %}">Balance Transfer</a>
-    {% else %}
-        <a href="{% url 'login' %}">Login</a>
-    {% endif %}
-</h1>
+{% extends 'base.html' %}
+{% block container %}
+{{ block.super }}
+<h3>Welcome to home page of ewallet </h3>
+{% endblock %}

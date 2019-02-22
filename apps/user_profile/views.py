@@ -1,28 +1,25 @@
 from django.shortcuts import render, redirect
 
-from django.contrib.auth.forms import UserCreationForm
 from django.views.generic import FormView
 from django.views.generic import CreateView
 
-from .models import Transaction
-from .forms import TransactionForm
+from .models import Transaction, Profile, Account
+from .forms import TransactionForm, CustomUserCreationForm
 
-
-def signup(request):
+class SignUp(CreateView):
+    form_class = CustomUserCreationForm
     template_name = 'signup.html'
-    if request.method == 'POST':
-        signup_form = UserCreationForm(request.POST) # form with data
-        if signup_form.is_valid():
-            signup_form.save()
-            return redirect('home')
-    else:
-        signup_form = UserCreationForm()
+    success_url = '/'
 
-    context = {
-        'form': signup_form,
-    }
-    return render(request,template_name, context)
-
+    def form_valid(self, form):
+        user = form.save()
+        profile = Profile.objects.create(user=user)
+        account = Account.objects.create(user=user)
+        print(form.cleaned_data)
+        profile.mobile = form.cleaned_data['mobile']
+        profile.save()
+        account.save()
+        return super().form_valid(form)
 
 # class based view use
 class TransactionView(CreateView):
