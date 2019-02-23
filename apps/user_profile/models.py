@@ -25,14 +25,14 @@ class Profile(models.Model):
     )
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_pic = models.ImageField(upload_to='profile', null=True, blank=True)
-    address = models.CharField(max_length=30)
-    country = models.CharField(max_length=30)
+    address = models.CharField(max_length=30, blank=True, null=True)
+    country = models.CharField(max_length=30, blank=True, null=True)
     mobile = models.CharField(max_length=15, unique=True,
                     validators=[validate_mobile_no_is_numeric,])
-    dob = models.DateField(null=True)
+    dob = models.DateField(null=True, blank=True)
     gender = models.CharField(max_length=1,
                               choices=GENDER_CHOICES, default=MALE)
-    profession = models.CharField(max_length=20, null=True)
+    profession = models.CharField(max_length=20, null=True, blank=True)
 
     def save(self, *args, **kwargs):  # override save method
         self.address = self.address.capitalize()

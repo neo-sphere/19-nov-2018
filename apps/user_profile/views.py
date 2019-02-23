@@ -13,12 +13,9 @@ class SignUp(CreateView):
 
     def form_valid(self, form):
         user = form.save()
-        profile = Profile.objects.create(user=user)
-        account = Account.objects.create(user=user)
-        print(form.cleaned_data)
-        profile.mobile = form.cleaned_data['mobile']
-        profile.save()
-        account.save()
+        mobile = form.cleaned_data['mobile']
+        Profile.objects.create(user=user, contact_no=mobile)
+        Account.objects.create(user=user)
         return super().form_valid(form)
 
 # class based view use
