@@ -13,9 +13,10 @@ class CustomUserCreationForm(UserCreationForm):
         fields = ('username', 'email', 'mobile')
 
 class TransactionForm(forms.ModelForm):
+    to_mobile = forms.CharField(max_length=15)
     
     class Meta:
         model = Transaction
-        fields = ['to_user', 'ammount']
+        fields = ['to_mobile', 'ammount']
 
     

@@ -2,4 +2,9 @@
 {% block container %}
 {{ block.super }}
 <h3>Welcome to home page of ewallet </h3>
+
+{% if user.is_authenticated %}
+    <a href="{% url 'user-detail' %}">User Detail</a>
+{% endif %}
+
 {% endblock %}

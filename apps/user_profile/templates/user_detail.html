@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block container %}
+   Username: {{ user.username }}</br>
+   Balance: {{ user.account.balance }}</br>
+   Mobile: {{ user.profile.mobile }}</br>
+   <a href="{% url 'send' %}">Balance Transfer</a>
+{% endblock container %}
